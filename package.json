@@ -10,7 +10,11 @@
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
     "husky:install": "husky install",
-    "husky:add": "husky add .husky/pre-commit \"node ./node_modules/typescript/bin/tsc --noEmit && npm run lint . && npm run format:fix .\"",
+    "husky:add": "husky add .husky/pre-commit \"npx tsc --noEmit && npx run lint . && npx run format:fix .\"",
+    "husky:add:lint": "husky add .husky/pre-commit \"npx lint-staged\"",
+    "format:stylelint": "prettier --check . && stylelint --allow-empty-input \"**/*.{css,scss}\"",
+    "lint:css": "stylelint **/*.{scss,css}",
+    "lint:css:fix": "stylelint --fix **/*.{scss,css}",
     "init": "npm run husky:install && npm run husky:add"
   },
   "dependencies": {
@@ -28,6 +32,13 @@
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "eslint-config-prettier": "^8.8.0",
     "husky": "^8.0.3",
-    "prettier": "^2.8.8"
+    "lint-staged": "^13.2.2",
+    "prettier": "^2.8.8",
+    "sass": "^1.63.5",
+    "stylelint": "^15.8.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-scss": "^5.0.1"
   }
 }

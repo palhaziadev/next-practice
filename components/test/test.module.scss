@@ -1,0 +1,28 @@
+@import './asd';
+
+.test {
+  color: red;
+
+  .testy {
+    color: blue;
+  }
+}
+
+@mixin reset-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.asd-asd {
+  &:hover {
+    color: purple;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include reset-list;
+
+  color: yellow;
+}
