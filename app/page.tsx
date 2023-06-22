@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import Test from '@/components/test';
+import Calc from '@/components/calc';
 
 export default function Home() {
   // let asd = 'haha';
   return (
     <main className={styles.main}>
       <Test></Test>
+      <Calc></Calc>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp; this is a very very very very very very
