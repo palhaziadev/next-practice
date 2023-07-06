@@ -15,7 +15,7 @@
     "format:stylelint": "prettier --check . && stylelint --allow-empty-input \"**/*.{css,scss}\"",
     "lint:css": "stylelint **/*.{scss,css}",
     "lint:css:fix": "stylelint --fix **/*.{scss,css}",
-    "init": "npm run husky:install && npm run husky:add",
+    "init": "npm run husky:install && npm run husky:add:lint",
     "test": "jest --watch",
     "test:ci": "jest --ci"
   },
@@ -25,6 +25,8 @@
     "@types/react-dom": "18.2.6",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.6",
+    "mobx": "^6.9.0",
+    "mobx-react-lite": "^3.4.3",
     "next": "13.4.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
