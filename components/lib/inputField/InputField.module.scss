@@ -1,0 +1,11 @@
+@import '../../../app/variables';
+
+.container {
+  border: $primary-border;
+}
+
+.field {
+  &:focus {
+    outline: none;
+  }
+}
