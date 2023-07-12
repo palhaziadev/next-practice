@@ -7,8 +7,6 @@ import NewTodo from '@/components/todo/newTodo/NewTodo';
 export default function Todo() {
   console.log('hello from Todo component ', isServer);
 
-  // const [newTodoText, setNewTodoText] = useState('');
-
   return (
     <div className={styles.page}>
       <AppHeader></AppHeader>

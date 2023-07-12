@@ -1,11 +1,11 @@
 'use client';
 import Button from '@/components/lib/button/Button';
 import styles from './page.module.css';
-import { isServer } from '@/utils';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 export default function Home() {
-  console.log('hello from Page component ', isServer);
+  const t = useTranslations('Index');
 
   const btnClick = () => {
     console.log('clicked');
@@ -16,6 +16,7 @@ export default function Home() {
       <Link href="/todo">To Todo</Link>
       <Link href="/notes">To Notes</Link>
       <Button text={'Button'} onClick={() => btnClick()} />
+      <h1>{t('title')}</h1>;
     </main>
   );
 }

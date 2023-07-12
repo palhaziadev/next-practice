@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-//TODO create page layout
+//TODO use in page layout
 const AppHeader = () => {
   return (
     <div>
