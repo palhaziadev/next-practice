@@ -1,5 +1,19 @@
 {
   "Index": {
     "title": "Hello world!"
+  },
+  "Todo": {
+    "addTodo": "Add Todo",
+    "status": {
+      "Created": "Created",
+      "InProgress": "InProgress",
+      "Blocked": "Blocked",
+      "Done": "Done",
+      "Cancelled": "Cancelled"
+    }
+  },
+  "Header": {
+    "main": "To Main",
+    "notes": "To Notes"
   }
 }

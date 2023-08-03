@@ -1,0 +1,18 @@
+@import '../../../app/variables';
+
+.container {
+  background-color: $primary-background-color;
+  padding: 8px;
+}
+
+.item {
+  margin: 8px 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

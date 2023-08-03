@@ -1,5 +1,8 @@
-@import '../../../app/[locale]/variables';
+@import '../../../app/variables';
 
 .button {
   background-color: $primary-color;
+  height: 40px;
+  min-width: fit-content;
+  padding: 0 8px;
 }

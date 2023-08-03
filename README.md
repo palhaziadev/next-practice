@@ -13,10 +13,14 @@ npm run dev
 - [x] sass+alphabetica ordered CSS rules
 - [x] prettier
 - [x] eslint
+- [x] tailwindcss
 - [x] jest+testing-library
 - [x] lint-staged
 - [x] husky
 - [x] mobx
+- [ ] eslint-plugin-mobx
 - [ ] storybook
 - [x] internationalization
 - [ ] cypress
+- [x] heroicons
+- [ ] theming

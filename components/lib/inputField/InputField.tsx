@@ -15,10 +15,10 @@ const InputField: React.FC<InputFieldProps> = ({
   onChange,
 }) => {
   return (
-    <div className={`flex px-2 ${styles.container}`}>
+    <div className={styles.container}>
       <input
         type="text"
-        className={`${styles.field}`}
+        className={styles.field}
         value={value}
         placeholder={placeholder}
         disabled={disabled}

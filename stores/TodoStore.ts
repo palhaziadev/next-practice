@@ -1,13 +1,19 @@
 import { isServer } from '@/utils';
+import { TodoStatus } from '@/types';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { enableStaticRendering } from 'mobx-react-lite';
 
 enableStaticRendering(isServer);
 
-type Todo = {
-  id: string;
+export type Todo = {
+  id: number;
   title: string;
-  done: boolean;
+  description: string;
+  status: TodoStatus;
+  createdBy: string;
+  createdDate: string;
+  owner: string;
+  orderNumber: number;
 };
 
 export type TodoState = {
@@ -25,24 +31,25 @@ export class TodoStore {
       theme: observable,
       hydrate: action,
       addTodo: action,
-      toggleDone: action,
+      setStatus: action.bound,
       nextId: computed,
       // timeString: computed,
     });
   }
 
   get nextId() {
-    return this.todoItems.length + 1 + '';
+    return this.todoItems.length + 1;
   }
 
   addTodo(newTodo: Todo) {
     this.todoItems.push(newTodo);
   }
 
-  toggleDone(todo: Todo) {
+  setStatus(id: number, status: TodoStatus) {
+    console.log(id, status);
     for (const item of this.todoItems) {
-      if (item.id === todo.id) {
-        item.done = !item.done;
+      if (item.id === id) {
+        item.status = status;
         break;
       }
     }

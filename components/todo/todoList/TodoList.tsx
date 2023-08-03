@@ -2,18 +2,22 @@
 import { useTodoStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
+import TodoItem from '../todoItem/TodoItem';
+import styles from './TodoList.module.scss';
 
 const TodoList = observer(() => {
   const todoStore = useTodoStore();
   const todoItems = todoStore.todoItems;
   return (
-    <div>
+    <div className={styles.container}>
       {todoItems.map((item) => {
         return (
-          <div key={item.id}>
-            {item.id} {item.title} {item.done ? 'done' : 'not done'}
-            <button onClick={() => todoStore.toggleDone(item)}>Done</button>
-          </div>
+          <TodoItem
+            className={styles.item}
+            key={item.id}
+            {...item}
+            setStatus={todoStore.setStatus}
+          />
         );
       })}
     </div>

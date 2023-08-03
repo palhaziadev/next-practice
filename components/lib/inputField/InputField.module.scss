@@ -1,7 +1,10 @@
-@import '../../../app/[locale]/variables';
+@import '../../../app/variables';
 
 .container {
   border: $primary-border;
+  display: flex;
+  padding: 0 8px;
+  width: 100%;
 }
 
 .field {
