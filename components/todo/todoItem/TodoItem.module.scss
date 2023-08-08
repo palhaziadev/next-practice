@@ -1,10 +1,21 @@
-@import '../../../app/variables';
-
 .container {
-  background-color: $secondary-background-color;
-
-  // border-radius: $primary-border-radius;
+  background-color: var(--secondary-background-color);
   display: flex;
   justify-content: space-between;
   padding: 4px;
+}
+
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleContainer {
+  max-width: 350px;
+}
+
+.dropdown {
+  align-self: center;
+  width: 110px;
 }

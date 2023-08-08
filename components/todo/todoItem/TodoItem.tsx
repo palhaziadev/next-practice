@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './TodoItem.module.scss';
 import { todoStatus } from '@/utils/constants';
 import { useTranslations } from 'next-intl';
+import Dropdown, { DropdownItem } from '@/components/lib/dropdown/Dropdown';
 
 interface TodoItemProps extends Todo, BaseComponent {
   setStatus: (id: number, status: TodoStatus) => void;
@@ -17,24 +18,29 @@ const TodoItem: React.FC<TodoItemProps> = ({
   className,
 }) => {
   const t = useTranslations('Todo');
+
+  const items = todoStatus.map((status) => ({
+    id: status,
+    value: status,
+    displayValue: t(`status.${status}`),
+  })) as DropdownItem[];
+
+  function onDropdownChange(item: DropdownItem): void {
+    setStatus(id, item.value as TodoStatus);
+  }
+
   return (
     <div className={[styles.container, className].join(' ')}>
-      <div>
+      <div className={styles.titleContainer}>
         <div>{id}</div>
-        <div>{title}</div>
+        <div className={styles.title}>{title}</div>
       </div>
-      <select
-        value={status}
-        onChange={(e) => setStatus(id, e.target.value as TodoStatus)}
-      >
-        {todoStatus.map((status) => {
-          return (
-            <option key={status} value={status}>
-              {t(`status.${status}`)}
-            </option>
-          );
-        })}
-      </select>
+      <Dropdown
+        className={styles.dropdown}
+        value={items.find((item) => item.value === status)}
+        items={items}
+        onDropdownChange={onDropdownChange}
+      />
     </div>
   );
 };

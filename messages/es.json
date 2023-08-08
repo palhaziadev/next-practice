@@ -13,7 +13,28 @@
     }
   },
   "Header": {
-    "main": "To Main",
-    "notes": "To Notes"
+    "index": "Index",
+    "notes": "Notes",
+    "todo": "Todo"
+  },
+  "Theme": {
+    "light": "light",
+    "dark": "dark",
+    "mario": "mario"
+  },
+  "Locale": {
+    "short": {
+      "en": "en",
+      "es": "es",
+      "hu": "hu"
+    },
+    "long": {
+      "en": "English",
+      "es": "Español",
+      "hu": "Magyar"
+    }
+  },
+  "Dropdown": {
+    "noItem": "No item selected"
   }
 }

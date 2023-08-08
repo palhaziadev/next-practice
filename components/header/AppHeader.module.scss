@@ -1,0 +1,15 @@
+.container {
+  background-color: var(--primary-brand-color);
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+}
+
+.itemContainer {
+  align-items: center;
+  display: flex;
+}
+
+.item {
+  padding: 0 4px;
+}

@@ -17,7 +17,8 @@ export async function fetchInitialStoreState(): Promise<RootStoreHydration> {
         },
         {
           id: 2,
-          title: 'inprogress title',
+          title:
+            'inprogress title long long long long long long long long long',
           description: '',
           status: TodoStatus.InProgress,
           createdBy: '',

@@ -1,13 +1,15 @@
-@import '../../../app/variables';
-
 .container {
-  border: $primary-border;
+  border: var(--primary-border);
   display: flex;
-  padding: 0 8px;
   width: 100%;
 }
 
 .field {
+  background-color: var(--secondary-background-color);
+  color: var(--primary-font-color);
+  padding: 0 8px;
+  width: inherit;
+
   &:focus {
     outline: none;
   }

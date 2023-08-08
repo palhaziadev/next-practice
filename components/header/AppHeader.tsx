@@ -2,15 +2,30 @@ import { isServer } from '@/utils';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React from 'react';
+import ThemeSwitcher from '../common/themeSwitcher/ThemeSwitcher';
+import LanguageSwitcher from '../common/languageSwitcher/LanguageSwitcher';
+import styles from './AppHeader.module.scss';
 
-//TODO use in page layout
 const AppHeader = () => {
   console.log('hello from appHeader component ', isServer);
   const t = useTranslations('Header');
   return (
-    <div>
-      <Link href="/">{t('main')}</Link>
-      <Link href="/notes">{t('notes')}</Link>
+    <div className={styles.container}>
+      <div className={styles.itemContainer}>
+        <Link className={styles.item} href="/">
+          {t('index')}
+        </Link>
+        <Link className={styles.item} href="/notes">
+          {t('notes')}
+        </Link>
+        <Link className={styles.item} href="/todo">
+          {t('todo')}
+        </Link>
+      </div>
+      <div className={styles.itemContainer}>
+        <ThemeSwitcher className={styles.item} />
+        <LanguageSwitcher className={styles.item} />
+      </div>
     </div>
   );
 };

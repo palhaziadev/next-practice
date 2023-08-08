@@ -23,4 +23,4 @@ npm run dev
 - [x] internationalization
 - [ ] cypress
 - [x] heroicons
-- [ ] theming
+- [x] theming

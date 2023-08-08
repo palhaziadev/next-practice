@@ -1,7 +1,5 @@
-@import '../../../app/variables';
-
 .container {
-  background-color: $primary-background-color;
+  background-color: var(--primary-background-color);
   padding: 8px;
 }
 

@@ -7,3 +7,7 @@ export const todoStatus: TodoStatus[] = [
   TodoStatus.Done,
   TodoStatus.Cancelled,
 ];
+
+export const themes = ['light', 'dark', 'mario'];
+
+export const locales = ['en', 'es', 'hu'];

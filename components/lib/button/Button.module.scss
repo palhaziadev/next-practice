@@ -1,7 +1,5 @@
-@import '../../../app/variables';
-
 .button {
-  background-color: $primary-color;
+  background-color: var(--primary-brand-color);
   height: 40px;
   min-width: fit-content;
   padding: 0 8px;
