@@ -2,12 +2,12 @@ import { Todo } from '@/stores/TodoStore';
 import { BaseComponent, TodoStatus } from '@/types';
 import React from 'react';
 import styles from './TodoItem.module.scss';
-import { todoStatus } from '@/utils/constants';
 import { useTranslations } from 'next-intl';
 import Dropdown, { DropdownItem } from '@/components/lib/dropdown/Dropdown';
+import { todoStatus } from '@/utils/constants';
 
 interface TodoItemProps extends Todo, BaseComponent {
-  setStatus: (id: number, status: TodoStatus) => void;
+  setStatus: (id: string, status: TodoStatus) => void;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
@@ -26,7 +26,9 @@ const TodoItem: React.FC<TodoItemProps> = ({
   })) as DropdownItem[];
 
   function onDropdownChange(item: DropdownItem): void {
-    setStatus(id, item.value as TodoStatus);
+    if (id) {
+      setStatus(id, item.value as TodoStatus);
+    }
   }
 
   return (

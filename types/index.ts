@@ -3,7 +3,7 @@ export enum TodoStatus {
   InProgress = 'InProgress',
   Blocked = 'Blocked',
   Done = 'Done',
-  Cancelled = 'Cancelled',
+  Archived = 'Archived',
 }
 
 export interface BaseComponent {

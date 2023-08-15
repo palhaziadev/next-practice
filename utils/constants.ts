@@ -5,7 +5,7 @@ export const todoStatus: TodoStatus[] = [
   TodoStatus.InProgress,
   TodoStatus.Blocked,
   TodoStatus.Done,
-  TodoStatus.Cancelled,
+  TodoStatus.Archived,
 ];
 
 export const themes = ['light', 'dark', 'mario'];

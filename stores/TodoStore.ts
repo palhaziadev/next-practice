@@ -1,12 +1,13 @@
 import { isServer } from '@/utils';
 import { TodoStatus } from '@/types';
-import { action, computed, makeObservable, observable } from 'mobx';
+import { action, flow, makeObservable, observable } from 'mobx';
 import { enableStaticRendering } from 'mobx-react-lite';
+import { TodoService } from '@/lib/services/TodoService';
 
 enableStaticRendering(isServer);
 
 export type Todo = {
-  id: number;
+  id?: string;
   title: string;
   description: string;
   status: TodoStatus;
@@ -24,6 +25,7 @@ export type TodoState = {
 export class TodoStore {
   todoItems: Array<Todo> = [];
   theme = '';
+  todoService = new TodoService();
 
   constructor() {
     makeObservable(this, {
@@ -31,25 +33,35 @@ export class TodoStore {
       theme: observable,
       hydrate: action,
       addTodo: action,
+      getTodos: flow,
       setStatus: action.bound,
-      nextId: computed,
-      // timeString: computed,
+      // nextId: computed,
     });
   }
 
-  get nextId() {
-    return this.todoItems.length + 1;
+  *getTodos() {
+    // TODO add try catch
+    console.log('aaa flow function');
+    this.todoItems = (yield this.todoService.getTodos()) as Todo[];
   }
 
-  addTodo(newTodo: Todo) {
-    this.todoItems.push(newTodo);
+  // get nextId() {
+  //   return this.todoItems.length + 1;
+  // }
+
+  // onSnapshot Get realtime updates, check with mobx
+
+  async addTodo(newTodo: Todo) {
+    this.todoItems.push(await this.todoService.addTodo(newTodo));
   }
 
-  setStatus(id: number, status: TodoStatus) {
+  // update doc?
+  setStatus(id: string, status: TodoStatus) {
     console.log(id, status);
     for (const item of this.todoItems) {
       if (item.id === id) {
         item.status = status;
+        this.todoService.updateTodo(id, { status });
         break;
       }
     }
@@ -59,10 +71,4 @@ export class TodoStore {
     this.todoItems = serializedStore.todoItems;
     this.theme = serializedStore.theme;
   }
-}
-
-export async function fetchInitialStoreState() {
-  // You can do anything to fetch initial store state
-  // Todo needed?
-  return {};
 }

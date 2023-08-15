@@ -1,7 +1,7 @@
 import { isServer } from '@/utils';
 import styles from './page.module.scss';
-import TodoList from '@/components/todo/todoList/TodoList';
-import NewTodo from '@/components/todo/newTodo/NewTodo';
+import TodoList from '@/components/todo/todo-list/TodoList';
+import NewTodo from '@/components/todo/new-todo/NewTodo';
 
 // TODO try https://next-intl-docs.vercel.app/docs/getting-started/app-router-server-components#static-rendering
 // import {getTranslator} from 'next-intl/server';

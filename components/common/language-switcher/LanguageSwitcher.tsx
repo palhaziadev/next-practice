@@ -2,20 +2,15 @@
 
 import { locales } from '@/utils/constants';
 import { useLocale, useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next-intl/client';
-import { useTransition } from 'react';
 import styles from './LanguageSwitcher.module.scss';
 import Dropdown, { DropdownItem } from '@/components/lib/dropdown/Dropdown';
+import Link from 'next-intl/link';
 
 const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
 }) => {
   const t = useTranslations('Locale');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isPending, startTransition] = useTransition();
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
 
   const items = locales.map((locale) => ({
     id: locale,
@@ -23,11 +18,14 @@ const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     displayValue: t(`long.${locale}`),
   })) as DropdownItem[];
 
-  function onDropdownChange(item: DropdownItem): void {
-    const nextLocale = item.value;
-    startTransition(() => {
-      router.replace(pathname, { locale: nextLocale });
-    });
+  function itemRenderer(item: DropdownItem): React.ReactElement {
+    return (
+      <div key={item.id}>
+        <Link href="/todo" locale={item.value}>
+          {item.displayValue}
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -36,7 +34,7 @@ const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
         className={styles.dropdown}
         value={items.find((item) => item.value === locale)}
         items={items}
-        onDropdownChange={onDropdownChange}
+        itemRenderer={itemRenderer}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 import Button from '@/components/lib/button/Button';
-import InputField from '@/components/lib/inputField/InputField';
+import InputField from '@/components/lib/input-field/InputField';
 import { useTodoStore } from '@/stores';
 import { Todo } from '@/stores/TodoStore';
 import { TodoStatus } from '@/types';
@@ -13,7 +13,6 @@ const NewTodo = observer(() => {
   const t = useTranslations('Todo');
   const todoStore = useTodoStore();
   const [newTodo, setNewTodo] = useState<Todo>({
-    id: 0,
     title: '',
     description: '',
     status: TodoStatus.Created,
@@ -31,12 +30,7 @@ const NewTodo = observer(() => {
       />
       <Button
         text={t('addTodo')}
-        onClick={() =>
-          todoStore.addTodo({
-            ...newTodo,
-            id: todoStore.nextId,
-          })
-        }
+        onClick={() => todoStore.addTodo(newTodo)}
       ></Button>
     </div>
   );

@@ -2,8 +2,8 @@ import { isServer } from '@/utils';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React from 'react';
-import ThemeSwitcher from '../common/themeSwitcher/ThemeSwitcher';
-import LanguageSwitcher from '../common/languageSwitcher/LanguageSwitcher';
+import ThemeSwitcher from '../common/theme-switcher/ThemeSwitcher';
+import LanguageSwitcher from '../common/language-switcher/LanguageSwitcher';
 import styles from './AppHeader.module.scss';
 
 const AppHeader = () => {

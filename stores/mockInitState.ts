@@ -1,42 +1,11 @@
-import { TodoStatus } from '@/types';
+import { TodoService } from '@/lib/services/TodoService';
 import { RootStoreHydration } from './RootStore';
+import { Todo } from './TodoStore';
 
 export async function fetchInitialStoreState(): Promise<RootStoreHydration> {
   return {
     todoStore: {
-      todoItems: [
-        {
-          id: 1,
-          title: 'created title',
-          description: '',
-          status: TodoStatus.Created,
-          createdBy: '',
-          createdDate: '',
-          orderNumber: 0,
-          owner: '',
-        },
-        {
-          id: 2,
-          title:
-            'inprogress title long long long long long long long long long',
-          description: '',
-          status: TodoStatus.InProgress,
-          createdBy: '',
-          createdDate: '',
-          orderNumber: 0,
-          owner: '',
-        },
-        {
-          id: 3,
-          title: 'done title',
-          description: '',
-          status: TodoStatus.Done,
-          createdBy: '',
-          createdDate: '',
-          orderNumber: 0,
-          owner: '',
-        },
-      ],
+      todoItems: [...((await new TodoService().getTodos()) as Todo[])],
       theme: 'dark',
     },
     notesStore: {

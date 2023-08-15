@@ -9,7 +9,7 @@
       "InProgress": "InProgress",
       "Blocked": "Blocked",
       "Done": "Done",
-      "Cancelled": "Cancelled"
+      "Archived": "Archived"
     }
   },
   "Header": {

@@ -15,12 +15,13 @@ export type DropdownItem = {
 type DropdownProps = {
   value: DropdownItem | undefined;
   items: Array<DropdownItem>;
-  onDropdownChange: (value: DropdownItem) => void;
+  onDropdownChange?: (value: DropdownItem) => void;
+  itemRenderer?: (item: DropdownItem) => React.ReactElement;
 };
 
 const Dropdown: React.FC<
   DropdownProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ className, items, value, onDropdownChange }) => {
+> = ({ className, items, value, onDropdownChange, itemRenderer }) => {
   const t = useTranslations('Dropdown');
   const ref = useRef<HTMLDivElement>(null);
   const [closed, setClosed] = useState(true);
@@ -30,6 +31,18 @@ const Dropdown: React.FC<
   };
 
   useOnClickOutside(ref, () => setClosed(true));
+
+  function defaultItemRenderer(item: DropdownItem) {
+    return (
+      <div
+        className={styles.item}
+        key={item.id}
+        onClick={() => onDropdownChange?.(item)}
+      >
+        {item.displayValue}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -51,15 +64,7 @@ const Dropdown: React.FC<
         })}
       >
         {items.map((item) => {
-          return (
-            <div
-              className={styles.item}
-              key={item.id}
-              onClick={() => onDropdownChange(item)}
-            >
-              {item.displayValue}
-            </div>
-          );
+          return itemRenderer ? itemRenderer(item) : defaultItemRenderer(item);
         })}
       </div>
     </div>
