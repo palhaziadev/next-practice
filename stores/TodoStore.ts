@@ -3,6 +3,7 @@ import { TodoStatus } from '@/types';
 import { action, flow, makeObservable, observable } from 'mobx';
 import { enableStaticRendering } from 'mobx-react-lite';
 import { TodoService } from '@/lib/services/TodoService';
+import { TodoView } from '@/utils/constants';
 
 enableStaticRendering(isServer);
 
@@ -19,30 +20,36 @@ export type Todo = {
 
 export type TodoState = {
   todoItems: Array<Todo>;
-  theme: string;
+  view: TodoView;
 };
 
 export class TodoStore {
   todoItems: Array<Todo> = [];
-  theme = '';
+  view = TodoView.List;
   todoService = new TodoService();
+  // TODO create array for column order for grid view
+  // sort config?
+  // filter config?
 
   constructor() {
     makeObservable(this, {
       todoItems: observable,
-      theme: observable,
+      view: observable,
       hydrate: action,
-      addTodo: action,
+      addTodo: flow,
       getTodos: flow,
-      setStatus: action.bound,
+      updateTodo: flow.bound,
+      deleteTodo: flow.bound,
       // nextId: computed,
     });
   }
 
   *getTodos() {
-    // TODO add try catch
-    console.log('aaa flow function');
-    this.todoItems = (yield this.todoService.getTodos()) as Todo[];
+    try {
+      this.todoItems = (yield this.todoService.getTodos()) as Todo[];
+    } catch (e) {
+      console.error('get all todo error: ', e);
+    }
   }
 
   // get nextId() {
@@ -51,24 +58,38 @@ export class TodoStore {
 
   // onSnapshot Get realtime updates, check with mobx
 
-  async addTodo(newTodo: Todo) {
-    this.todoItems.push(await this.todoService.addTodo(newTodo));
+  *addTodo(newTodo: Todo) {
+    try {
+      this.todoItems.unshift(yield this.todoService.addTodo(newTodo));
+    } catch (e) {
+      console.error('add todo error: ', e);
+    }
   }
 
-  // update doc?
-  setStatus(id: string, status: TodoStatus) {
-    console.log(id, status);
-    for (const item of this.todoItems) {
-      if (item.id === id) {
-        item.status = status;
-        this.todoService.updateTodo(id, { status });
-        break;
-      }
+  *updateTodo(id: string, todoProps: Partial<Todo>) {
+    const itemIndex = this.todoItems.findIndex((todo) => todo.id === id);
+    try {
+      yield this.todoService.updateTodo(id, todoProps);
+      this.todoItems.splice(itemIndex, 1, {
+        ...this.todoItems[itemIndex],
+        ...todoProps,
+      });
+    } catch (e) {
+      console.error('update todo error: ', e);
+    }
+  }
+
+  *deleteTodo(id: string) {
+    try {
+      yield this.todoService.deleteTodo(id);
+      this.todoItems = this.todoItems.filter((todo) => todo.id !== id);
+    } catch (e) {
+      console.error('delete todo error: ', e);
     }
   }
 
   hydrate(serializedStore: TodoState) {
     this.todoItems = serializedStore.todoItems;
-    this.theme = serializedStore.theme;
+    this.view = serializedStore.view;
   }
 }

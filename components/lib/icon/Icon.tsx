@@ -16,6 +16,7 @@ type IconProps = {
   name: IconName;
   className?: string;
   outline?: boolean;
+  onClick?: () => void;
 } & Pick<React.SVGProps<SVGSVGElement>, 'stroke' | 'fill'>;
 
 const Icon: React.FC<IconProps> = ({
@@ -24,6 +25,7 @@ const Icon: React.FC<IconProps> = ({
   outline = false,
   stroke,
   fill,
+  onClick,
 }) => {
   // TODO check if dynamic import is working correctly
   // const Icon: ComponentType<{ className: string }> = outline
@@ -34,7 +36,7 @@ const Icon: React.FC<IconProps> = ({
   const Icon: IconType = outline ? OutlineIcons[name] : SolidIcons[name];
 
   return (
-    <div className={styles.iconContainer}>
+    <div className={styles.iconContainer} onClick={onClick}>
       <Icon
         className={className}
         aria-hidden={true}

@@ -2,6 +2,7 @@ import { db } from '@/firebase';
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   getDocs,
   updateDoc,
@@ -10,14 +11,15 @@ import RepositoryInterface from './IRepository';
 import { Todo } from '@/stores/TodoStore';
 
 export class TodoRepository implements RepositoryInterface<Todo> {
+  private readonly collectionName = 'todos';
+
   async create(newTodo: Todo): Promise<Todo> {
     let docRef = null;
     try {
-      docRef = await addDoc(collection(db, 'todos'), { ...newTodo });
-      console.log('aaa Added: ', docRef.id);
+      docRef = await addDoc(collection(db, this.collectionName), newTodo);
     } catch (e) {
-      // TODO remove item from array
-      console.error('Error adding document: ', e);
+      // console.error('Error adding document: ', e);
+      throw new Error(e as string);
     }
     return {
       id: docRef?.id,
@@ -26,29 +28,37 @@ export class TodoRepository implements RepositoryInterface<Todo> {
   }
 
   async getAll(): Promise<Todo[]> {
-    console.log('getAll');
     const todos: Todo[] = [];
-    const querySnapshot = await getDocs(collection(db, 'todos'));
-    for (const doc of querySnapshot.docs) {
-      console.log(`Document found at path: ${doc.ref.path}, id: ${doc.id}`);
-      todos.push({
-        ...doc.data(),
-        id: doc.id,
-      } as Todo);
+    try {
+      const querySnapshot = await getDocs(collection(db, this.collectionName));
+      // const querySnapshot =  await query(collection(db, this.collectionName), orderBy("createdDate"));
+      for (const doc of querySnapshot.docs) {
+        todos.push({
+          ...doc.data(),
+          id: doc.id,
+        } as Todo);
+      }
+    } catch (e) {
+      // console.error('Error getAll document: ', e);
+      throw new Error(e as string);
     }
-    return todos;
+    // TODO fix sort
+    return todos.sort(
+      (a: Todo, b: Todo) =>
+        new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+    );
   }
 
   //fix return type
   async update(id: string, todoProps: Partial<Todo>): Promise<void> {
     let docRef = null;
     try {
-      const document = doc(db, 'todos', id);
+      const document = doc(db, this.collectionName + 'ee', id);
       docRef = await updateDoc(document, { ...todoProps });
       console.log('aaa updated: ', docRef);
     } catch (e) {
-      // TODO remove item from array
-      console.error('Error adding document: ', e);
+      // console.error('Error updating document: ', e);
+      throw new Error(e as string);
     }
     // return {
     //   id: id,
@@ -62,7 +72,13 @@ export class TodoRepository implements RepositoryInterface<Todo> {
   // search(data: object): Promise<Todo> {
   //   console.log('Method not implemented.');
   // }
-  // delete(data: Todo): Promise<Todo> {
-  //   console.log('Method not implemented.');
-  // }
+
+  async delete(id: string): Promise<void> {
+    try {
+      await deleteDoc(doc(db, this.collectionName, id));
+    } catch (e) {
+      // console.log('Error removing document: ', e);
+      throw new Error(e as string);
+    }
+  }
 }

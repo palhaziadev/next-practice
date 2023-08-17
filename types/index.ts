@@ -7,5 +7,5 @@ export enum TodoStatus {
 }
 
 export interface BaseComponent {
-  className: string;
+  className?: string;
 }

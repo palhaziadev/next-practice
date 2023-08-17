@@ -1,4 +1,3 @@
-import { isServer } from '@/utils';
 import { TodoRepository } from './TodoFirebase';
 import { Todo } from '@/stores/TodoStore';
 
@@ -9,7 +8,6 @@ export class TodoService {
   }
 
   async getTodos() {
-    console.log('aaa isserver service', isServer);
     return this.repository.getAll();
   }
 
@@ -19,5 +17,9 @@ export class TodoService {
 
   async updateTodo(id: string, props: Partial<Todo>) {
     return this.repository.update(id, props);
+  }
+
+  async deleteTodo(id: string) {
+    return this.repository.delete(id);
   }
 }

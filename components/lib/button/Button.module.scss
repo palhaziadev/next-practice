@@ -3,4 +3,9 @@
   height: 40px;
   min-width: fit-content;
   padding: 0 8px;
+
+  &:disabled {
+    /* stylelint-disable-next-line color-function-notation */
+    background-color: rgba(var(--primary-brand-color-rgb), 0.5);
+  }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
+import { BaseComponent } from '@/types';
+import cn from 'classnames';
 
 type ButtonProps = {
   text: string;
@@ -7,9 +9,18 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-const Button: React.FC<ButtonProps> = ({ text, disabled, onClick }) => {
+const Button: React.FC<ButtonProps & BaseComponent> = ({
+  text,
+  disabled,
+  onClick,
+  className,
+}) => {
   return (
-    <button className={styles.button} disabled={disabled} onClick={onClick}>
+    <button
+      className={cn(className, styles.button)}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {text}
     </button>
   );

@@ -1,6 +1,29 @@
 .container {
   background-color: var(--primary-background-color);
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
   padding: 8px;
+  width: 500px;
+
+  &--grid {
+    display: flex;
+    height: calc(100vh - 160px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 1200px;
+  }
+}
+
+.gridColumn {
+  flex: 1;
+  margin-left: 8px;
+  max-width: 350px;
+  min-width: 350px;
+  width: 350px;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .item {

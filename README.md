@@ -24,3 +24,4 @@ npm run dev
 - [ ] cypress
 - [x] heroicons
 - [x] theming
+- [ ] firestore

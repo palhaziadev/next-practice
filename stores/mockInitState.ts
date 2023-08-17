@@ -1,12 +1,19 @@
 import { TodoService } from '@/lib/services/TodoService';
 import { RootStoreHydration } from './RootStore';
 import { Todo } from './TodoStore';
+import { TodoView } from '@/utils/constants';
 
 export async function fetchInitialStoreState(): Promise<RootStoreHydration> {
+  let todos: Todo[] = [];
+  try {
+    todos = (await new TodoService().getTodos()) as Todo[];
+  } catch (e) {
+    console.error('error getAll todo', e);
+  }
   return {
     todoStore: {
-      todoItems: [...((await new TodoService().getTodos()) as Todo[])],
-      theme: 'dark',
+      todoItems: [...todos],
+      view: TodoView.List,
     },
     notesStore: {
       noteItems: [

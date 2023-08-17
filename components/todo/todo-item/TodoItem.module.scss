@@ -1,18 +1,22 @@
 .container {
+  align-items: center;
   background-color: var(--secondary-background-color);
   display: flex;
   justify-content: space-between;
+  min-height: 50px;
   padding: 4px;
 }
 
 .title {
   overflow: hidden;
+  padding-right: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .titleContainer {
-  max-width: 350px;
+  flex: 1;
+  max-width: calc(100% - 150px);
 }
 
 .dropdown {

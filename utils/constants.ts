@@ -1,5 +1,10 @@
 import { TodoStatus } from '@/types';
 
+export enum TodoView {
+  List = 'List',
+  Grid = 'Grid',
+}
+
 export const todoStatus: TodoStatus[] = [
   TodoStatus.Created,
   TodoStatus.InProgress,

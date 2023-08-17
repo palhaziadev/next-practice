@@ -3,9 +3,22 @@
 }
 
 .container {
-  width: 500px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .newContainer {
+  align-items: stretch;
+  display: flex;
   margin-bottom: 8px;
+  width: 500px;
+}
+
+.optionsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  width: 500px;
 }
