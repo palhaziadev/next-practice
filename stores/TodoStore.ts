@@ -30,6 +30,7 @@ export class TodoStore {
   // TODO create array for column order for grid view
   // sort config?
   // filter config?
+  // archived ?
 
   constructor() {
     makeObservable(this, {

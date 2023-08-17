@@ -53,7 +53,7 @@ export class TodoRepository implements RepositoryInterface<Todo> {
   async update(id: string, todoProps: Partial<Todo>): Promise<void> {
     let docRef = null;
     try {
-      const document = doc(db, this.collectionName + 'ee', id);
+      const document = doc(db, this.collectionName, id);
       docRef = await updateDoc(document, { ...todoProps });
       console.log('aaa updated: ', docRef);
     } catch (e) {
