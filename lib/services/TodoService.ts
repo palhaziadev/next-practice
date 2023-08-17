@@ -1,6 +1,7 @@
 import { TodoRepository } from './TodoFirebase';
 import { Todo } from '@/stores/TodoStore';
 
+// TODO is the service needed?
 export class TodoService {
   repository = new TodoRepository();
   constructor() {
