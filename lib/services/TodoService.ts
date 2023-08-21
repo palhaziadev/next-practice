@@ -1,7 +1,9 @@
-import { TodoRepository } from './TodoFirebase';
+import { TodoRepository } from './TodoRepository';
 import { Todo } from '@/stores/TodoStore';
 
 // TODO is the service needed?
+// not in use at the moment
+// obsolete
 export class TodoService {
   repository = new TodoRepository();
   constructor() {

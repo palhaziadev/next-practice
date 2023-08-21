@@ -15,10 +15,10 @@ type GridColumns = {
 
 const TodoList = observer(() => {
   const todoStore = useTodoStore();
-  const { view, todoItems, updateTodo, deleteTodo } = todoStore;
+  const { view, todos, updateTodo, deleteTodo, gridConfig } = todoStore;
 
   function openTodo(): void {
-    //TODO
+    // TODO
     console.log('aaa open todo modal');
   }
 
@@ -37,29 +37,27 @@ const TodoList = observer(() => {
     });
   }
 
+  //TODO empty list view
+
   function gridRenderer() {
-    // TODO create array for column order
-    console.log('aaa items', todoItems);
-    const columns: GridColumns = todoItems.reduce(
+    // TODO put this logic to Store?
+    const columns: GridColumns = todos.reduce(
       (acc: GridColumns, curr: Todo) => {
         if (acc?.[curr.status]) {
           acc[curr.status]?.push(curr);
         } else {
-          console.log('aaa else', acc, curr);
           acc[curr.status] = [curr];
         }
         return acc;
       },
       {}
     );
-    console.log('aaa grid cols', columns);
-    // TODO handle Archived properly
-    delete columns[TodoStatus.Archived];
 
-    return Object.keys(columns).map((column, index) => {
+    return gridConfig.map((column, index) => {
+      if (!column.isVisible) return null;
       return (
         <div className={styles.gridColumn} key={index}>
-          {listRenderer(columns[column as TodoStatus])}
+          {listRenderer(columns[column.column as TodoStatus])}
         </div>
       );
     });
@@ -71,7 +69,7 @@ const TodoList = observer(() => {
         [styles['container--grid']]: view === TodoView.Grid,
       })}
     >
-      {view === TodoView.List ? listRenderer(todoItems) : gridRenderer()}
+      {view === TodoView.List ? listRenderer(todos) : gridRenderer()}
     </div>
   );
 });

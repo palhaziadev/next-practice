@@ -7,10 +7,10 @@ import {
   getDocs,
   updateDoc,
 } from 'firebase/firestore';
-import RepositoryInterface from './IRepository';
+import IRepository from './IRepository';
 import { Todo } from '@/stores/TodoStore';
 
-export class TodoRepository implements RepositoryInterface<Todo> {
+export class TodoRepository implements IRepository<Todo> {
   private readonly collectionName = 'todos';
 
   async create(newTodo: Todo): Promise<Todo> {

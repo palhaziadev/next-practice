@@ -1,3 +1,4 @@
+import { TodoRepository } from '@/lib/services/TodoRepository';
 import { NotesState, NotesStore } from './NotesStore';
 import { TodoState, TodoStore } from './TodoStore';
 
@@ -10,7 +11,7 @@ export class RootStore {
   notesStore: NotesStore;
 
   constructor() {
-    this.todoStore = new TodoStore();
+    this.todoStore = new TodoStore(new TodoRepository());
     this.notesStore = new NotesStore();
   }
 

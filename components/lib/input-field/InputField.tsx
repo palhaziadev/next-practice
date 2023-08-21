@@ -6,6 +6,7 @@ type InputFieldProps = {
   placeholder?: string;
   disabled?: boolean;
   onChange: (value: string) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLDivElement>) => void;
 };
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -13,6 +14,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   disabled = false,
   onChange,
+  onKeyDown,
 }) => {
   return (
     <div className={styles.container}>
@@ -23,6 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => onKeyDown?.(e)}
       />
     </div>
   );

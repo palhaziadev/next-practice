@@ -36,5 +36,8 @@
   },
   "Dropdown": {
     "noItem": "No item selected"
+  },
+  "Search": {
+    "buttonText": "Search"
   }
 }

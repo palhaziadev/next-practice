@@ -13,15 +13,17 @@ const ViewSwitcher = observer(() => {
     <div className={styles.container}>
       {todoStore.view === TodoView.List ? (
         <Icon
-          fill="var(--primary-brand-color)"
-          stroke="black"
+          fill="white"
+          stroke="var(--primary-brand-color)"
           name="ViewColumnsIcon"
-          onClick={() => (todoStore.view = TodoView.Grid)}
+          onClick={() => todoStore.setView(TodoView.Grid)}
         />
       ) : (
         <Icon
+          fill="white"
+          stroke="var(--primary-brand-color)"
           name="ListBulletIcon"
-          onClick={() => (todoStore.view = TodoView.List)}
+          onClick={() => todoStore.setView(TodoView.List)}
         />
       )}
     </div>
