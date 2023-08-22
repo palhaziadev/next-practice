@@ -90,7 +90,7 @@ export class TodoStore {
 
   // onSnapshot Get realtime updates, check with mobx
 
-  // TODO maybo shouldn't be computed?
+  // TODO maybe shouldn't be computed?
   get todos() {
     console.log('aaa get todos');
     return this.filteredTodos ? this.filteredTodos : this.todoItems;
