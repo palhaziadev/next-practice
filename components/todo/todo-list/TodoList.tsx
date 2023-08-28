@@ -1,25 +1,31 @@
 'use client';
 import { useTodoStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { ReactNode, useState } from 'react';
 import TodoItem from '../todo-item/TodoItem';
 import styles from './TodoList.module.scss';
-import { TodoView } from '@/utils/constants';
+import { TodoStatus, TodoView } from '@/utils/constants';
 import cn from 'classnames';
 import { Todo } from '@/stores/TodoStore';
-import { TodoStatus } from '@/types';
+import Modal from '@/components/lib/modal/Modal';
+import TodoForm from '../todo-form/TodoForm';
+import { useTranslations } from 'next-intl';
 
 type GridColumns = {
   [key in TodoStatus]?: Todo[];
 };
 
 const TodoList = observer(() => {
+  const t = useTranslations('Todo');
   const todoStore = useTodoStore();
+  // TODO modal context?
+  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState<Todo>();
   const { view, todos, updateTodo, deleteTodo, gridConfig } = todoStore;
 
-  function openTodo(): void {
-    // TODO
-    console.log('aaa open todo modal');
+  function openTodo(todo: Todo): void {
+    setModalData(todo);
+    setShowModal(true);
   }
 
   function listRenderer(itemsToRender: Todo[] = []) {
@@ -28,9 +34,9 @@ const TodoList = observer(() => {
         <TodoItem
           className={styles.item}
           key={item.id}
-          {...item}
+          todo={item}
           updateTodo={updateTodo}
-          openTodo={() => openTodo()}
+          openTodo={(todo) => openTodo(todo)}
           deleteTodo={deleteTodo}
         />
       );
@@ -63,13 +69,39 @@ const TodoList = observer(() => {
     });
   }
 
+  function handleSubmit(todo: Todo): void {
+    setShowModal(false);
+    if (todo.id) {
+      updateTodo(todo.id, { ...todo });
+    }
+  }
+
+  function renderItems(): ReactNode {
+    return (
+      <>
+        {view === TodoView.List ? listRenderer(todos) : gridRenderer()}
+        <Modal
+          title={t('newTodo')}
+          onClose={() => setShowModal(false)}
+          show={showModal}
+        >
+          <TodoForm todo={modalData} onSubmit={(todo) => handleSubmit(todo)} />
+        </Modal>
+      </>
+    );
+  }
+
+  function renderEmptyView(): ReactNode {
+    return <div className={styles.empty}>{t('noItems')}</div>;
+  }
+
   return (
     <div
       className={cn(styles.container, {
         [styles['container--grid']]: view === TodoView.Grid,
       })}
     >
-      {view === TodoView.List ? listRenderer(todos) : gridRenderer()}
+      {!todos.length ? renderEmptyView() : renderItems()}
     </div>
   );
 });

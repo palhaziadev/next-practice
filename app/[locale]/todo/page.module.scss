@@ -12,13 +12,13 @@
 .newContainer {
   align-items: stretch;
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: var(--primary-spacing);
   width: 500px;
 }
 
 .optionsContainer {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: var(--primary-spacing);
   width: 500px;
 }

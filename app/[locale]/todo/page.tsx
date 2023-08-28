@@ -4,6 +4,7 @@ import TodoList from '@/components/todo/todo-list/TodoList';
 import ViewSwitcher from '@/components/todo/view-switcher/ViewSwitcher';
 import TodoFilters from '@/components/todo/todo-filters/TodoFilters';
 import TodoSearch from '@/components/todo/todo-search/TodoSearch';
+import NewTodo from '@/components/todo/new-todo/NewTodo';
 
 // TODO try https://next-intl-docs.vercel.app/docs/getting-started/app-router-server-components#static-rendering
 // import {getTranslator} from 'next-intl/server';
@@ -21,7 +22,7 @@ export default function Todo() {
       <div>
         <div className={`m-auto ${styles.container}`}>
           <div className={styles.newContainer}>
-            {/* <NewTodo /> */}
+            <NewTodo />
             <TodoSearch />
           </div>
           <div className={styles.optionsContainer}>

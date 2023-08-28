@@ -1,39 +1,49 @@
 'use client';
 import Button from '@/components/lib/button/Button';
-import InputField from '@/components/lib/input-field/InputField';
-import { useTodoStore } from '@/stores';
-import { Todo } from '@/stores/TodoStore';
-import { TodoStatus } from '@/types';
-import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react';
 import styles from './NewTodo.module.scss';
 import { useTranslations } from 'next-intl';
+import Modal from '@/components/lib/modal/Modal';
+import TodoForm from '../todo-form/TodoForm';
+import { useTodoStore } from '@/stores';
+import { Todo } from '@/stores/TodoStore';
 
-const NewTodo = observer(() => {
-  const t = useTranslations('Todo');
+const NewTodo = () => {
   const todoStore = useTodoStore();
-  const [newTodo, setNewTodo] = useState<Todo>({
-    title: '',
-    description: '',
-    status: TodoStatus.Created,
-    createdBy: '',
-    createdDate: new Date().toString(),
-    owner: '',
-    orderNumber: 0,
-  });
+  const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const t = useTranslations('Todo');
+
+  const handleSubmit = (todo: Todo) => {
+    setShowModal(false);
+    todoStore.addTodo(todo);
+  };
 
   return (
     <div className={styles.container}>
-      <InputField
-        onChange={(value) => setNewTodo({ ...newTodo, title: value })}
-        value={newTodo.title}
-      />
-      <Button
-        text={t('addTodo')}
-        onClick={() => todoStore.addTodo(newTodo)}
-      ></Button>
+      <Button text={t('addTodo')} onClick={() => setShowModal(true)}></Button>
+      <Modal
+        title={t('newTodo')}
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        className="asd"
+      >
+        <TodoForm onSubmit={(todo) => handleSubmit(todo)} />
+        <Button
+          text={t('addTodo')}
+          onClick={() => setShowModal2(true)}
+        ></Button>
+        <Modal
+          title={'fuuu'}
+          onClose={() => setShowModal2(false)}
+          show={showModal2}
+          parentRef=".asd"
+        >
+          second modal
+        </Modal>
+      </Modal>
     </div>
   );
-});
+};
 
 export default NewTodo;

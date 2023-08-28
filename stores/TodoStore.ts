@@ -1,8 +1,7 @@
 import { isServer } from '@/utils';
-import { TodoStatus } from '@/types';
 import { action, computed, flow, makeObservable, observable } from 'mobx';
 import { enableStaticRendering } from 'mobx-react-lite';
-import { TodoView } from '@/utils/constants';
+import { TodoStatus, TodoView } from '@/utils/constants';
 import IRepository from '@/lib/services/IRepository';
 
 enableStaticRendering(isServer);
@@ -84,15 +83,10 @@ export class TodoStore {
     }
   }
 
-  // get nextId() {
-  //   return this.todoItems.length + 1;
-  // }
-
   // onSnapshot Get realtime updates, check with mobx
 
-  // TODO maybe shouldn't be computed?
+  // TODO maybe shouldn't be computed? implement search?
   get todos() {
-    console.log('aaa get todos');
     return this.filteredTodos ? this.filteredTodos : this.todoItems;
   }
 
@@ -126,6 +120,9 @@ export class TodoStore {
     }
   }
 
+  // TODO implement getOne in repo
+
+  // TODO implement search in repo
   filterTodos(filterProps: TodoFilterProps): void {
     if (!filterProps.title.length) {
       this.filteredTodos = undefined;

@@ -24,7 +24,6 @@ export default async function RootLayout({
 }) {
   const locale = useLocale();
   const initialStoreState = await fetchInitialStoreState();
-  console.log('aaa init', initialStoreState.todoStore?.todoItems);
 
   // Show a 404 error if the user requests an unknown locale
   if (params.locale !== locale) {
@@ -48,6 +47,7 @@ export default async function RootLayout({
             <NextIntlClientProvider locale={locale} messages={messages}>
               <AppHeader />
               <div className={styles.contentContainer}>{children}</div>
+              <div id="modal-portal"></div>
             </NextIntlClientProvider>
           </ClientProviders>
         </RootStoreProvider>

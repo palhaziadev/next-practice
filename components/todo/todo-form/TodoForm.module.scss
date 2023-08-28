@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex: 1;
+}
+
+.dropdown {
+  align-self: center;
+  width: 110px;
+}
+
+.column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  &:first-of-type {
+    flex: 2;
+    margin-right: var(--primary-spacing);
+  }
+
+  &:last-of-type {
+    justify-content: space-between;
+  }
+}
+
+.textarea {
+  border: var(--primary-border);
+  margin-top: var(--primary-spacing);
+  padding: var(--primary-spacing);
+  resize: none;
+}

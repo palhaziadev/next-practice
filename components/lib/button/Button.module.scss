@@ -1,11 +1,22 @@
 .button {
+  // primary
   background-color: var(--primary-brand-color);
+
+  // size normal
   height: 40px;
   min-width: fit-content;
-  padding: 0 8px;
+  padding: 0 var(--primary-spacing);
 
   &:disabled {
     /* stylelint-disable-next-line color-function-notation */
     background-color: rgba(var(--primary-brand-color-rgb), 0.5);
   }
+}
+
+.secondary {
+  background-color: var(--white);
+}
+
+.small {
+  height: 30px;
 }

@@ -3,6 +3,7 @@
     "title": "Hello világ!"
   },
   "Todo": {
+    "newTodo": "Új feladat",
     "addTodo": "Új feladat",
     "status": {
       "Created": "Created",
@@ -10,7 +11,8 @@
       "Blocked": "Blocked",
       "Done": "Done",
       "Archived": "Archived"
-    }
+    },
+    "noItems": "No Items"
   },
   "Header": {
     "index": "Index",
@@ -39,5 +41,8 @@
   },
   "Search": {
     "buttonText": "Search"
+  },
+  "Modal": {
+    "close": "close"
   }
 }
