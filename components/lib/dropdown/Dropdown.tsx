@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Icon from '../icon/Icon';
 import { useTranslations } from 'next-intl';
 import useOnClickOutside from '@/lib/hooks/ClickOutside';
+import { BaseComponent } from '@/types';
 
 export type DropdownItem = {
   id: number | string;
@@ -12,16 +13,22 @@ export type DropdownItem = {
   displayValue: string;
 };
 
-type DropdownProps = {
+interface DropdownProps extends BaseComponent {
   value: DropdownItem | undefined;
   items: Array<DropdownItem>;
   onDropdownChange?: (value: DropdownItem) => void;
   itemRenderer?: (item: DropdownItem) => React.ReactElement;
-};
+}
 
-const Dropdown: React.FC<
-  DropdownProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ className, items, value, onDropdownChange, itemRenderer }) => {
+// TODO add possibility to select 'No item selected' (clear the dropdown value)
+// TODO use item rendered for selected value?
+const Dropdown: React.FC<DropdownProps> = ({
+  className,
+  items,
+  value,
+  onDropdownChange,
+  itemRenderer,
+}) => {
   const t = useTranslations('Dropdown');
   const ref = useRef<HTMLDivElement>(null);
   const [closed, setClosed] = useState(true);

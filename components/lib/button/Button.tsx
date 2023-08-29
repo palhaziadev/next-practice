@@ -13,15 +13,18 @@ export enum ButtonSize {
   Normal = 'normal',
 }
 
-type ButtonProps = {
+// TODO refactor propTypes to interface
+// storybook can't handle control generation if interscetion type is used for props
+// all controls generated as default control (free text input)
+interface ButtonProps extends BaseComponent {
   text: string;
   size?: ButtonSize;
   type?: ButtonType;
   disabled?: boolean;
   onClick: () => void;
-};
+}
 
-const Button: React.FC<ButtonProps & BaseComponent> = ({
+const Button: React.FC<ButtonProps> = ({
   text,
   type = ButtonType.Primary,
   size = ButtonSize.Normal,
