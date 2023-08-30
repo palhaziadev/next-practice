@@ -43,8 +43,6 @@ const TodoList = observer(() => {
     });
   }
 
-  // TODO empty list view
-
   function gridRenderer() {
     // TODO put this logic to Store?
     const columns: GridColumns = todos.reduce(
