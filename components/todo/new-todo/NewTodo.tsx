@@ -11,7 +11,6 @@ import { Todo } from '@/stores/TodoStore';
 const NewTodo = () => {
   const todoStore = useTodoStore();
   const [showModal, setShowModal] = useState(false);
-  const [showModal2, setShowModal2] = useState(false);
   const t = useTranslations('Todo');
 
   const handleSubmit = (todo: Todo) => {
@@ -26,21 +25,8 @@ const NewTodo = () => {
         title={t('newTodo')}
         onClose={() => setShowModal(false)}
         show={showModal}
-        className="asd"
       >
         <TodoForm onSubmit={(todo) => handleSubmit(todo)} />
-        <Button
-          text={t('addTodo')}
-          onClick={() => setShowModal2(true)}
-        ></Button>
-        <Modal
-          title={'fuuu'}
-          onClose={() => setShowModal2(false)}
-          show={showModal2}
-          parentRef=".asd"
-        >
-          second modal
-        </Modal>
       </Modal>
     </div>
   );

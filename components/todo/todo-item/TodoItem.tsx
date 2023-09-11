@@ -1,6 +1,6 @@
 import { Todo } from '@/stores/TodoStore';
 import { BaseComponent } from '@/types';
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './TodoItem.module.scss';
 import { useTranslations } from 'next-intl';
 import Dropdown, { DropdownItem } from '@/components/lib/dropdown/Dropdown';
@@ -9,9 +9,9 @@ import { TodoStatus } from '@/utils/constants';
 
 interface TodoItemProps extends BaseComponent {
   todo: Todo;
-  updateTodo: (id: string, todoProps: Partial<Todo>) => void;
-  openTodo: (todo: Todo) => void;
-  deleteTodo: (id: string) => void;
+  updateTodo?: (id: string, todoProps: Partial<Todo>) => void;
+  openTodo?: (todo: Todo) => void;
+  deleteTodo?: (id: string) => void;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
@@ -32,13 +32,13 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   function onDropdownChange(item: DropdownItem): void {
     if (todo.id) {
-      updateTodo(todo.id, { status: item.value as TodoStatus });
+      updateTodo?.(todo.id, { status: item.value as TodoStatus });
     }
   }
 
   return (
     <div className={[styles.container, className].join(' ')}>
-      <div onClick={() => openTodo(todo)} className={styles.titleContainer}>
+      <div onClick={() => openTodo?.(todo)} className={styles.titleContainer}>
         <div className={styles.title}>{todo.title}</div>
       </div>
       <Dropdown
@@ -47,9 +47,16 @@ const TodoItem: React.FC<TodoItemProps> = ({
         items={items}
         onDropdownChange={onDropdownChange}
       />
-      <Icon name="TrashIcon" onClick={() => todo.id && deleteTodo(todo.id)} />
+      <Icon name="TrashIcon" onClick={() => todo.id && deleteTodo?.(todo.id)} />
     </div>
   );
 };
 
-export default TodoItem;
+function propsAreEqual(prevMovie: TodoItemProps, nextMovie: TodoItemProps) {
+  return (
+    prevMovie.className === nextMovie.className &&
+    prevMovie.todo === nextMovie.todo
+  );
+}
+
+export default memo(TodoItem, propsAreEqual);

@@ -1,7 +1,7 @@
 'use client';
 import { useTodoStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, memo, useState } from 'react';
 import TodoItem from '../todo-item/TodoItem';
 import styles from './TodoList.module.scss';
 import { TodoStatus, TodoView } from '@/utils/constants';
@@ -75,18 +75,7 @@ const TodoList = observer(() => {
   }
 
   function renderItems(): ReactNode {
-    return (
-      <>
-        {view === TodoView.List ? listRenderer(todos) : gridRenderer()}
-        <Modal
-          title={t('newTodo')}
-          onClose={() => setShowModal(false)}
-          show={showModal}
-        >
-          <TodoForm todo={modalData} onSubmit={(todo) => handleSubmit(todo)} />
-        </Modal>
-      </>
-    );
+    return <>{view === TodoView.List ? listRenderer(todos) : gridRenderer()}</>;
   }
 
   function renderEmptyView(): ReactNode {
@@ -100,8 +89,44 @@ const TodoList = observer(() => {
       })}
     >
       {!todos.length ? renderEmptyView() : renderItems()}
+
+      <ModalRenderer
+        handleSubmit={handleSubmit}
+        modalData={modalData}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </div>
   );
 });
+
+type TodoFormModalProps = {
+  handleSubmit: (todo: Todo) => void;
+  modalData: Todo | undefined;
+  showModal: boolean;
+  setShowModal: (showModal: boolean) => void;
+};
+
+const ModalRenderer = memo(
+  function ModalRenderer({
+    handleSubmit,
+    modalData,
+    showModal,
+    setShowModal,
+  }: TodoFormModalProps) {
+    const t = useTranslations('Todo');
+
+    return (
+      <Modal
+        title={t('newTodo')}
+        onClose={() => setShowModal(false)}
+        show={showModal}
+      >
+        <TodoForm todo={modalData} onSubmit={(todo) => handleSubmit(todo)} />
+      </Modal>
+    );
+  },
+  (prev, next) => prev.showModal === next.showModal
+);
 
 export default TodoList;
