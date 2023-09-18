@@ -20,7 +20,7 @@ const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 
   function itemRenderer(item: DropdownItem): React.ReactElement {
     return (
-      <div key={item.id}>
+      <div key={item.id} className={styles.itemContainer}>
         <Link href="/todo" locale={item.value}>
           {item.displayValue}
         </Link>

@@ -1,5 +1,5 @@
 'use client';
-import Search from '@/components/search/Search';
+import Search from '@/components/common/search/Search';
 import { useTodoStore } from '@/stores';
 import { observer } from 'mobx-react-lite';
 import React from 'react';

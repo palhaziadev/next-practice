@@ -20,8 +20,7 @@ interface DropdownProps extends BaseComponent {
   itemRenderer?: (item: DropdownItem) => React.ReactElement;
 }
 
-// TODO add possibility to select 'No item selected' (clear the dropdown value)
-// TODO use item rendered for selected value?
+// TODO fix selected item eventhandler when custom renderer is given
 const Dropdown: React.FC<DropdownProps> = ({
   className,
   items,
@@ -33,11 +32,15 @@ const Dropdown: React.FC<DropdownProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [closed, setClosed] = useState(true);
 
-  const toggleDropdown = () => {
+  const toggleDropdown = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
     setClosed((currentValue) => !currentValue);
   };
 
   useOnClickOutside(ref, () => setClosed(true));
+
+  // TODO add default color and hover to every item in dropdown
 
   function defaultItemRenderer(item: DropdownItem) {
     return (
@@ -51,29 +54,33 @@ const Dropdown: React.FC<DropdownProps> = ({
     );
   }
 
+  function renderSelected(item: DropdownItem) {
+    return itemRenderer ? itemRenderer(item) : defaultItemRenderer(item);
+  }
+
   return (
     <div
       ref={ref}
       className={cn(styles.container, className)}
-      onClick={() => toggleDropdown()}
+      onClick={(e) => toggleDropdown(e)}
     >
       <div className={styles.selectedItem}>
-        <span>{value?.displayValue ?? t('noItem')}</span>
+        {value ? renderSelected(value) : t('noItem')}
         {closed ? (
           <Icon name="ChevronDownIcon" />
         ) : (
           <Icon name="ChevronUpIcon" />
         )}
       </div>
-      <div
-        className={cn(styles.itemContainer, {
-          [styles['itemContainer--closed']]: closed,
-        })}
-      >
-        {items.map((item) => {
-          return itemRenderer ? itemRenderer(item) : defaultItemRenderer(item);
-        })}
-      </div>
+      {!closed ? (
+        <div className={cn(styles.itemContainer)}>
+          {items.map((item) => {
+            return itemRenderer
+              ? itemRenderer(item)
+              : defaultItemRenderer(item);
+          })}
+        </div>
+      ) : null}
     </div>
   );
 };

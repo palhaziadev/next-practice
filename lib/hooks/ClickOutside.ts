@@ -1,12 +1,19 @@
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const useOnClickOutside = (ref, handler) => {
+const useOnClickOutside = (
+  ref: React.RefObject<HTMLElement>,
+  handler: (event: undefined) => void
+) => {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const listener = (event) => {
+    const listener = (
+      // TODO fix type
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      event
+      // event: React.MouseEvent<HTMLElement> | React.TouchEvent<HTMLElement>
+    ) => {
+      // ) => {
+
       if (!ref.current || ref.current.contains(event.target)) {
         return;
       }

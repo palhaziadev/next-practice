@@ -13,4 +13,4 @@ export enum TodoView {
 
 export const themes = ['light', 'dark', 'mario'];
 
-export const locales = ['en', 'es', 'hu'];
+export const locales = ['en', 'es', 'hu'] as const;
