@@ -126,10 +126,11 @@ export class TodoStore {
   filterTodos(filterProps: TodoFilterProps): void {
     if (!filterProps.title.length) {
       this.filteredTodos = undefined;
+    } else {
+      this.filteredTodos = this.todoItems.filter((item) => {
+        return item.title.includes(filterProps.title);
+      });
     }
-    this.filteredTodos = this.todoItems.filter((item) => {
-      return item.title.includes(filterProps.title);
-    });
   }
 
   setView(view: TodoView): void {

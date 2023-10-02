@@ -28,7 +28,7 @@ const TodoList = observer(() => {
     setShowModal(true);
   }
 
-  function listRenderer(itemsToRender: Todo[] = []) {
+  function columnRenderer(itemsToRender: Todo[] = []) {
     return itemsToRender.map((item) => {
       return (
         <TodoItem
@@ -41,6 +41,10 @@ const TodoList = observer(() => {
         />
       );
     });
+  }
+
+  function listRenderer() {
+    return <div className={styles.column}>{columnRenderer(todos)}</div>;
   }
 
   function gridRenderer() {
@@ -60,8 +64,13 @@ const TodoList = observer(() => {
     return gridConfig.map((column, index) => {
       if (!column.isVisible) return null;
       return (
-        <div className={styles.gridColumn} key={index}>
-          {listRenderer(columns[column.column as TodoStatus])}
+        <div
+          className={cn(styles.column, {
+            [styles['column--grid']]: view === TodoView.Grid,
+          })}
+          key={index}
+        >
+          {columnRenderer(columns[column.column as TodoStatus])}
         </div>
       );
     });
@@ -75,7 +84,7 @@ const TodoList = observer(() => {
   }
 
   function renderItems(): ReactNode {
-    return <>{view === TodoView.List ? listRenderer(todos) : gridRenderer()}</>;
+    return <>{view === TodoView.List ? listRenderer() : gridRenderer()}</>;
   }
 
   function renderEmptyView(): ReactNode {
@@ -118,8 +127,10 @@ const ModalRenderer = memo(
 
     return (
       <Modal
-        title={t('newTodo')}
-        onClose={() => setShowModal(false)}
+        title={t('modifyTodo')}
+        onClose={() => {
+          setShowModal(false);
+        }}
         show={showModal}
       >
         <TodoForm todo={modalData} onSubmit={(todo) => handleSubmit(todo)} />

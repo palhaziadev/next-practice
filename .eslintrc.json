@@ -1,10 +1,11 @@
 {
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "cypress"],
   "extends": [
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:cypress/recommended"
   ],
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",

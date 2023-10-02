@@ -1,6 +1,7 @@
 'use client';
 
 import { locales } from '@/utils/constants';
+import { usePathname } from 'next-intl/client';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from './LanguageSwitcher.module.scss';
 import Dropdown, { DropdownItem } from '@/components/lib/dropdown/Dropdown';
@@ -11,6 +12,7 @@ const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
 }) => {
   const t = useTranslations('Locale');
   const locale = useLocale();
+  const pathname = usePathname();
 
   const items = locales.map((locale) => ({
     id: locale,
@@ -21,7 +23,7 @@ const LocaleSwitcher: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   function itemRenderer(item: DropdownItem): React.ReactElement {
     return (
       <div key={item.id} className={styles.itemContainer}>
-        <Link href="/todo" locale={item.value}>
+        <Link href={pathname} locale={item.value}>
           {item.displayValue}
         </Link>
       </div>

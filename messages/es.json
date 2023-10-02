@@ -5,6 +5,8 @@
   "Todo": {
     "newTodo": "New Todo",
     "addTodo": "Añadir todo",
+    "modifyTodo": "Modify Todo",
+    "submit": "Submit",
     "status": {
       "Created": "Created",
       "InProgress": "InProgress",
@@ -40,9 +42,11 @@
     "noItem": "No item selected"
   },
   "Search": {
-    "buttonText": "Search"
+    "buttonText": "Search",
+    "inputPlaceholder": "Search Todo"
   },
   "Modal": {
-    "close": "close"
+    "close": "close",
+    "submit": "Submit"
   }
 }

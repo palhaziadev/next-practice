@@ -25,6 +25,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
         onChange={(value) => setValue(value)}
         value={value}
         onKeyDown={handleKeyDown}
+        placeholder={t('inputPlaceholder')}
       />
       <Button text={t('buttonText')} onClick={() => onSearch(value)}></Button>
     </div>

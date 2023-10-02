@@ -64,7 +64,7 @@ const TodoForm: React.FC<TodoFormProps> = observer(({ todo, onSubmit }) => {
           items={items}
           onDropdownChange={onDropdownChange}
         />
-        <Button text={t('addTodo')} onClick={() => onSubmit(newTodo)}></Button>
+        <Button text={t('submit')} onClick={() => onSubmit(newTodo)}></Button>
       </div>
     </div>
   );

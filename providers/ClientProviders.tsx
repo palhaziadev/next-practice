@@ -1,4 +1,5 @@
 'use client';
+import { themes } from '@/utils/constants';
 import { ThemeProvider } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -13,5 +14,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider themes={themes} defaultTheme="light">
+      {children}
+    </ThemeProvider>
+  );
 }

@@ -36,7 +36,7 @@ const Icon: React.FC<IconProps> = ({
   const Icon: IconType = outline ? OutlineIcons[name] : SolidIcons[name];
 
   return (
-    <div className={styles.iconContainer} onClick={onClick}>
+    <div className={`${styles.iconContainer} ${name}`} onClick={onClick}>
       <Icon
         className={className}
         aria-hidden={true}
