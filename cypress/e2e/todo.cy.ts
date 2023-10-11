@@ -12,11 +12,11 @@ describe('Todo Page', () => {
 
   it('should modify todo', () => {
     TodoPage.open();
-    const title = 'eheheh';
+    const title = 'new Title';
     TodoPage.modifyTodo({
       title: 'POM test',
-      newTitle: 'eheheh',
-      newDesciption: 'yayaya',
+      newTitle: 'new Title',
+      newDesciption: 'new description',
       newStatus: TodoStatus.Done,
     });
     cy.contains('div', title).should('be.visible');
@@ -29,7 +29,7 @@ describe('Todo Page', () => {
 
     TodoPage.addTodo({
       title: title,
-      description: 'yo yo yo',
+      description: 'test description',
       status: TodoStatus.Blocked,
     });
 
@@ -38,7 +38,7 @@ describe('Todo Page', () => {
 
   it('should remove todo', () => {
     TodoPage.open();
-    const title = 'eheheh';
+    const title = 'new Title';
     TodoPage.removeTodo({ title: title });
     cy.contains('div', title).should('not.exist');
   });

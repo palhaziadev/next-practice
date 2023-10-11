@@ -26,8 +26,9 @@ npm run dev
 - [x] heroicons
 - [x] theming
 - [x] firestore
-- [ ] run unit-tests before commit
-- [ ] run e2e tests before commit
+- [x] run unit-tests before commit
+- [ ] run e2e tests before commit??
+- [x] try atomic design
 
 ## Feature backlog
 

@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { RootStoreProvider } from '@/stores';
 import { fetchInitialStoreState } from '@/stores/mockInitState';
 import ClientProviders from '@/providers/ClientProviders';
-import AppHeader from '@/components/header/AppHeader';
+import AppHeader from '@/components/organisms/header/AppHeader';
 import styles from './layout.module.scss';
 
 const inter = Inter({ subsets: ['latin'] });
